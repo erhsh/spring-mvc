@@ -59,4 +59,11 @@ public class TestController {
 
 		return "view";
 	}
+	
+	@RequestMapping("/importdata")
+	@ResponseBody
+	public String importData() {
+		service.importData();
+		return "ok";
+	}
 }

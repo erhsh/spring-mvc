@@ -1,5 +1,6 @@
 package com.erhsh.prj.distrmgmtsys.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -8,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.erhsh.prj.distrmgmtsys.model.CarInfo;
 import com.erhsh.prj.distrmgmtsys.model.User;
 
 @Repository
@@ -24,12 +26,17 @@ public class TestDao {
 		System.out.println("TestDao.test()");
 	}
 
-	public List<User> list() {
+	public List<CarInfo> list() {
 		Session session = sessionFactory.getCurrentSession();
-		Query query = session.createQuery("from User");
+		Query query = session.createQuery("from CarInfo");
 
-		List users = query.list();
+		List<CarInfo> carInfo = query.list();
 
-		return users;
+		return carInfo;
+	}
+
+	public void save(CarInfo carInfo) {
+		Session session = sessionFactory.getCurrentSession();
+		session.saveOrUpdate(carInfo);
 	}
 }

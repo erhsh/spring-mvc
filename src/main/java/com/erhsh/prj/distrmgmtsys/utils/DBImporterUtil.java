@@ -13,7 +13,7 @@ import com.erhsh.prj.distrmgmtsys.pojo.CarInfoVO;
 
 public class DBImporterUtil {
 
-	public void parseAndImport() throws DocumentException {
+	public static List<CarInfoVO> parse() throws DocumentException {
 		List<CarInfoVO> allData = new ArrayList<CarInfoVO>();
 		List<File> files = FileUtils.listSub("d:\\cars");
 
@@ -25,11 +25,11 @@ public class DBImporterUtil {
 			allData.addAll(partData);
 		}
 
-		System.out.println(allData.size());
+		return allData;
 
 	}
 
-	private List<CarInfoVO> parse(File file) throws DocumentException {
+	private static List<CarInfoVO> parse(File file) throws DocumentException {
 		List<CarInfoVO> ret = new ArrayList<CarInfoVO>();
 		if (!file.getName().endsWith(".xml")) {
 			return ret;
@@ -53,6 +53,6 @@ public class DBImporterUtil {
 	}
 
 	public static void main(String[] args) throws DocumentException {
-		new DBImporterUtil().parseAndImport();
+		DBImporterUtil.parse();
 	}
 }

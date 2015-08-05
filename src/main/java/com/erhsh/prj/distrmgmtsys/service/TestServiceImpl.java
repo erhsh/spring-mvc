@@ -3,12 +3,15 @@ package com.erhsh.prj.distrmgmtsys.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.dom4j.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.erhsh.prj.distrmgmtsys.dao.TestDao;
-import com.erhsh.prj.distrmgmtsys.model.User;
+import com.erhsh.prj.distrmgmtsys.model.CarInfo;
+import com.erhsh.prj.distrmgmtsys.pojo.CarInfoVO;
 import com.erhsh.prj.distrmgmtsys.pojo.UserVO;
+import com.erhsh.prj.distrmgmtsys.utils.DBImporterUtil;
 
 @Service
 public class TestServiceImpl implements TestService {
@@ -25,17 +28,29 @@ public class TestServiceImpl implements TestService {
 	@Override
 	public List<UserVO> list() {
 		List<UserVO> ret = new ArrayList<UserVO>();
-		List<User> users = dao.list();
+		List<CarInfo> carInfos = dao.list();
 
-		for (User user : users) {
-			UserVO userVO = new UserVO();
-
-			userVO.setId(String.valueOf(user.getId()));
-			userVO.setName(user.getName());
-			ret.add(userVO);
+		for (CarInfo carInfo : carInfos) {
+			System.out.println(carInfo);
 		}
 
 		return ret;
+	}
+
+	public void importData() {
+		List<CarInfoVO> carInfoVOs = new ArrayList<CarInfoVO>();
+		try {
+			carInfoVOs = DBImporterUtil.parse();
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
+
+		for (CarInfoVO carInfoVO : carInfoVOs) {
+			CarInfo carInfo = new CarInfo();
+			carInfo.setBrand(carInfoVO.getBrand());
+			carInfo.setTitle(carInfoVO.getTitle());
+			dao.save(carInfo);
+		}
 	}
 
 }

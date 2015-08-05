@@ -37,7 +37,7 @@
 			</props>
 		</property>
 		<!-- 扫描hibernate注解配置的entity -->
-		<property name="packagesToScan" value="com.erhsh.test.springmvc.model" />
+		<property name="packagesToScan" value="com.erhsh.prj.distrmgmtsys.model" />
 	</bean>
 
 	<!-- 配置事务管理器 -->

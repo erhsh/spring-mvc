@@ -11,7 +11,7 @@
 	<context:annotation-config />
 
 	<context:component-scan
-		base-package="com.erhsh.test.springmvc.dao, com.erhsh.test.springmvc.service" />
+		base-package="com.erhsh.prj.distrmgmtsys.dao, com.erhsh.prj.distrmgmtsys.service" />
 
 	<!-- 引入属性文件Hibernate属性配置 -->
 	<context:property-placeholder location="classpath:config.properties" />
