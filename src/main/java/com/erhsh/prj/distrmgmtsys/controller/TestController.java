@@ -3,10 +3,15 @@ package com.erhsh.prj.distrmgmtsys.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.erhsh.prj.distrmgmtsys.pojo.UserVO;
@@ -59,11 +64,21 @@ public class TestController {
 
 		return "view";
 	}
-	
+
 	@RequestMapping("/importdata")
 	@ResponseBody
 	public String importData() {
 		service.importData();
 		return "ok";
+	}
+
+	@RequestMapping(value = "/download/{filename:.*}", method = RequestMethod.GET, produces = "application/*")
+	public ResponseEntity<byte[]> downloadFile(@PathVariable String filename) {
+		System.out.println(filename);
+		HttpHeaders headers = new HttpHeaders();
+		MediaType mt = new MediaType("application", "octet-stream");
+		headers.setContentType(mt);
+		return new ResponseEntity<byte[]>("aa".getBytes(),
+				headers, HttpStatus.OK);
 	}
 }

@@ -34,10 +34,11 @@
 				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
 				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
 				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.id.new_generator_mappings">${hibernate.id.new_generator_mappings}</prop>
 			</props>
 		</property>
 		<!-- 扫描hibernate注解配置的entity -->
-		<property name="packagesToScan" value="com.erhsh.prj.distrmgmtsys.model" />
+		<property name="packagesToScan" value="com.erhsh.prj.distrmgmtsys.dao.po" />
 	</bean>
 
 	<!-- 配置事务管理器 -->
@@ -45,4 +46,6 @@
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	
+	<tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>
